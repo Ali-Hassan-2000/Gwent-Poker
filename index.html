@@ -8,6 +8,54 @@
     <script src="./js/app.js" defer></script> 
 </head>
 <body>
-    
+
+    <h1>Gwent Poker</h1> <!-- game title -->
+
+    <div class="poker-table"> <!-- Table game div -->
+
+        <div class="player" id="player2"> <!-- player 2 logo -->
+            <div class="player-logo">Player 2</div>
+            <div class="cash">Cash/Chip</div>
+        </div> 
+        
+        <div class="player" id="player4"> <!-- player 4 logo -->  
+            <div class="player-logo">Player 4</div>
+            <div class="cash">Cash/Chip</div>
+        </div> 
+        
+        <div class="player" id="player3"> <!-- player 3 logo -->
+            <div class="player-logo">Player 3</div>
+            <div class="cash">Cash/Chip</div>
+        </div> 
+        
+        <div class="player" id="player1"> <!-- player 1 logo -->
+            <div class="player-logo">Player 1</div>
+            <div class="cash">Cash/Chip</div>
+        </div> 
+
+        <div class="bet-area">
+            <div class="bet" id="bet">Bet</div>
+        </div>
+
+        <div class="actions"> <!-- action buttons div -->
+            <button id="check">Check</button> <!-- check action button (for bet) -->
+            <button id="raise">Raise</button> <!-- raise action button (for bet) -->
+            <button id="fold">Fold</button> <!-- fold action button (for bet) -->
+            <button id="call">Call</button> <!-- call action button (for bet) -->
+        </div>
+    </div>
+
+
+    <div class="action-message">
+        <p>Action message will appear here.</p>
+    </div>
+
+    <div class="rules">
+        <h3>Game Rules</h3>
+        <p>Game rules will be displayed here.</p>
+    </div>
+
+    <button id="start-game">Start Game</button> <!-- start game button -->
+
 </body>
 </html>

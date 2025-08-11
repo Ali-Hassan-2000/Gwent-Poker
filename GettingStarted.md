@@ -147,3 +147,5 @@ The game features a clean and intuitive interface built with HTML, CSS, and Java
 ![game theme](.\img\Poker_rules.png)
 ### Board:
 ![poker_board](.\img\poker_board.png)
+### UI
+![UI](.\img\UI.png)
