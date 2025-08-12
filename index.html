@@ -37,25 +37,62 @@
             <div class="bet" id="bet">Bet</div>
         </div>
 
-        <div class="actions"> <!-- action buttons div -->
-            <button id="check">Check</button> <!-- check action button (for bet) -->
-            <button id="raise">Raise</button> <!-- raise action button (for bet) -->
-            <button id="fold">Fold</button> <!-- fold action button (for bet) -->
-            <button id="call">Call</button> <!-- call action button (for bet) -->
-        </div>
     </div>
 
-
-    <div class="action-message">
-        <p>Action message will appear here.</p>
+    <div class="actions"> <!-- action buttons div -->
+        <button id="raise">Raise</button> <!-- raise action button (for bet) -->
+        <button id="check/call">Check/call</button> <!-- check or call action button (for bet) -->
+        <button id="fold">Fold</button> <!-- fold action button (for bet) -->
     </div>
 
-    <div class="rules">
-        <h3>Game Rules</h3>
-        <p>Game rules will be displayed here.</p>
+    <div class="action-message"> <!-- this part for showing the user the  (start button at first, results during the game, next hand button to continue playing until the game finished)-->
+        <p>Action message will appear here.</p> 
+        <button id="start-game">Start Game</button> <!-- start game button -->
     </div>
 
-    <button id="start-game">Start Game</button> <!-- start game button -->
+    <div class="rules"> <!-- game rules -->
+        <h3>Poker Rules</h3>
+        <p>Poker is a card game where players make bets based on the rank and strength of their hands. 
+            The goal is to win the pot, which is the sum of all bets placed during a hand. Key elements include 
+            hand rankings, betting rounds, and the showdown.</p>
+        
+         <p><span>Gameplay:</span> 
+        <ul>
+            <li><span>Dealing:</span> Cards are dealt to each player, either face-down (hole cards) or face-up (community cards).</li>
+            <li><span>Betting Rounds:</span> Players take turns betting, with options to call (match a bet), raise (increase the bet), or fold 
+                (give up on the hand).</li>
+            <li><span>Showdown:</span> If more than one player remains after the final betting round, they reveal their hands, and the player with 
+                the best hand wins the pot.</li>
+        </ul>
+        </p>
+
+        <p><span>Hand Rankings:</span>
+        <ul>
+            <li><span>Royal Flush:</span> Ace, King, Queen, Jack, Ten, all of the same suit.</li>
+            <li><span>Straight Flush:</span> Five cards in sequence, all of the same suit.</li>
+            <li><span>Four of a Kind:</span> Four cards of the same rank.</li>
+            <li><span>Full House:</span> Three of a kind and a pair.</li>
+            <li><span>Flush:</span> Five cards of the same suit.</li>
+            <li><span>Straight:</span> Five cards in sequence (Ace can be high or low).</li>
+            <li><span>Three of a Kind:</span> Three cards of the same rank.</li>
+            <li><span>Two Pair:</span> Two sets of pairs.</li>
+            <li><span>One Pair:</span> Two cards of the same rank.</li>
+            <li><span>High Card:</span> The highest card in the hand, if no other combinations are formed.</li>
+        </ul>
+        </p>
+
+        <img src="./img/Poker_rules.png">
+
+        <p><span>Betting:</span>
+        <ul>
+            <li><span>Check:</span> If no bet has been made, a player can check, meaning they pass the action to the next player. </li>
+            <li><span>Call:</span> Matching the current bet. </li>
+            <li><span>Raise:</span> Increasing the current bet. </li>
+            <li><span>Fold:</span> Giving up on the hand and forfeiting any bets placed.</li>
+        </ul>
+        </p>
+
+    </div>
 
 </body>
 </html>
