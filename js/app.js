@@ -1,4 +1,5 @@
 /*--------------------------------------------------- Constants -----------------------------------------------------------*/
+
 /* game cards (names for calculations and imgs for UI update)*/
 const deck = {
     clubs: [
@@ -72,10 +73,9 @@ const players = [
     { id: 4, name: "Player 4", cash: 100, hand: [] },
 ];
 
-
-
-
 /*-------------------------------------------------------- Variables (state) ----------------------------------------------------------*/
+
+/* current bet varible */
 let currentBet = 0;
 
 /* all table elements */
@@ -172,7 +172,7 @@ document.getElementById('start-game').addEventListener('click', function() {star
 
 /* event listener for action buttons for player 1 */
 /*
-
+document.getElementById('raise').addEventListener('click', function() {startGame();});
 */
 
 /* bet slider for real player event listener */
