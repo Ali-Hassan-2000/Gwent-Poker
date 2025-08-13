@@ -30,8 +30,14 @@
         
         <div class="player" id="player1"> <!-- player 1 logo -->
             <div class="player-logo">Player 1</div>
-            <div class="cash">Cash/Chip</div>
         </div> 
+
+        <div class="cash-player">Cash/Chip</div> <!-- player 1 cash logo -->
+
+        <div id="movableBar"> <!-- This bar for player 1 to select the amount for the bet -->
+            <input type="range" id="bet-slider" min="0" max="100" value="50" />
+            <div class="bet-amount" id="bet-amount">50</div>
+        </div>  
 
         <div class="bet-area">
             <div class="bet" id="bet">Bet</div>
