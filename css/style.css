@@ -171,27 +171,32 @@ button:hover {
 }
 
 /* general cash logo inside player div */
-.cash {
-    background-color: #fff; 
-    padding: 5px; 
-    border: 1px solid #333; 
-    border-radius: 5px; 
-    font-size: 15px; 
-    text-align: center; 
+.cash img{
+    width: 50px;
+    height: 50px; 
+}
+
+.cash p {
+    position: absolute; 
+    font-weight: bold;
+    bottom: -35px; 
+    left: 30px; 
 }
 
 /* cash logo for player 1 */
-.cash-player {
-    background-color: #fff; 
-    padding: 15px; 
-    border: 1px solid #333; 
-    border-radius: 5px; 
-    font-size: 15px; 
-    text-align: center; 
-    
+.cash-player img {
+    width: 70px;
+    height: 70px;
     position: absolute; 
-    bottom: 10px; 
+    bottom: 30px; 
     left: 10px; 
+}
+
+.cash-player p {
+    position: absolute; 
+    font-weight: bold;
+    bottom: -10px; 
+    left: 25px; 
 }
 
 /* cash bar selector for player 1*/
@@ -199,7 +204,7 @@ button:hover {
   display: flex;
   position: absolute;
   bottom: 20px;
-  left: 130px;
+  left: 80px;
 }
 
 #bet-slider {
@@ -221,9 +226,7 @@ button:hover {
     margin: 5px; 
 }
 
-.card {
-    background-color: white; 
-    border: 1px solid #333; 
+.card img{
     border-radius: 10px; 
     width: 65px;
     height: 90px;
@@ -232,7 +235,6 @@ button:hover {
     align-items: center; 
     justify-content: center; 
     margin: 1px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
 }
 
 #player1 .card-container {
@@ -268,21 +270,19 @@ button:hover {
     display: flex;
     align-items: center; 
     position: absolute;
+    justify-content: space-around;
     bottom: 200px; 
     left: 52%; 
     transform: translateX(-50%);
-    width: 600px; 
+    width: 500px; 
     height: 180px;
 }
 
-.center-cards .card{
-    background-color: white; 
-    border: 1px solid #333; 
+.center-cards img{
     border-radius: 10px; 
     width: 90px; 
     height: 135px;  
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
-    margin: 0 10px;
+    display: flex;
 }
 
 .small-cards {
@@ -292,27 +292,22 @@ button:hover {
     bottom: 120px; 
     left: 32.5%; 
     transform: translateX(-50%);
-    width: 200px; 
+    width: 160px; 
     height: 90px;
 }
 
-.small-cards .card{
-    background-color: white; 
-    border: 1px solid #333; 
+.small-cards img{
     border-radius: 10px; 
     width: 65px;
     height: 90px;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center;  
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+    display: flex;
 }
 
 /* bet area that displayes total cash in the hand */
 .bet-area {
     display: flex;
     align-items: center; 
+    justify-content: space-around;
     position: absolute;
     bottom: 120px; 
     left: 55%; 
@@ -321,12 +316,19 @@ button:hover {
     height: 100px;
 }
 
-.bet {
+.bet img{
     position: absolute;
-    top: 50%; 
+    display: flex;
+    top: 35%; 
     left: 50%; 
     transform: translate(-50%, -50%); 
-    width: 190px; 
-    height: 90px;
-    background-color: #fff;
+    width: 70px; 
+    height: 70px;
+}
+
+.bet p {
+    position: absolute; 
+    font-weight: bold;
+    bottom: -15px; 
+    left: 80px; 
 }
