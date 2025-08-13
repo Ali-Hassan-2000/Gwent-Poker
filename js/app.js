@@ -1,4 +1,4 @@
-/*-------------- Constants -------------*/
+/*--------------------------------------------------- Constants -----------------------------------------------------------*/
 /* game cards (names for calculations and imgs for UI update)*/
 const deck = {
     clubs: [
@@ -61,6 +61,7 @@ const deck = {
         { name: 'Q', img: './img/cards/hearts_Q.png' },
         { name: 'K', img: './img/cards/hearts_K.png' },
     ],
+    back: { name: 'back-card', img: './img/cards/back_card.png' },
 };
 
 /* players info */ 
@@ -74,25 +75,66 @@ const players = [
 
 
 
-/*---------- Variables (state) ---------*/
+/*-------------------------------------------------------- Variables (state) ----------------------------------------------------------*/
 let currentBet = 0;
 
+/* all table elements */
+const tableVariables = {
+    centerCards: [
+        { number: 1, name: '', img: '' },
+        { number: 1, name: '', img: '' },
+        { number: 1, name: '', img: '' },
+        { number: 2, name: '', img: '' },
+        { number: 3, name: '', img: '' },
+    ],
+    smallCards: [
+        { number: 1, name: 'back-card', img: './img/cards/back_card.png' },
+        { number: 2, name: 'back-card', img: './img/cards/back_card.png' },
+        { number: 3, name: 'back-card', img: './img/cards/back_card.png' },
+    ],
+    playerCash: [
+        { id: 1, cash: 100 },
+        { id: 2, cash: 100 },
+        { id: 3, cash: 100 },
+        { id: 4, cash: 100 },
+    ],
+    playersCards: [
+        { positon: `Player1-1`, name: '', img: '' },
+        { positon: `Player1-2`, name: '', img: '' },
+        { positon: `Player2-1`, name: '', img: '' },
+        { positon: `Player2-2`, name: '', img: '' },
+        { positon: `Player3-1`, name: '', img: '' },
+        { positon: `Player3-2`, name: '', img: '' },
+        { positon: `Player4-1`, name: '', img: '' },
+        { positon: `Player4-2`, name: '', img: '' },
+    ],
+    totalBet: 0,
+};
 
-/*----- Cached Element References  -----*/
+/* actions messages array to be displayed */
+const actionMessages =[ ``, ``, ``, ``, ``, ``, ``, ``, ``, ``, ``];
 
-/* Cached Element will be changed later if needed
+/*---------------------------------------------- Cached Element References  --------------------------------------------------------*/
+
+/* Cached Element will be changed later if needed 
 
 const squareEls = document.querySelectorAll('.sqr');
 const messageEl = document.querySelector('#message');
 const resetBtnEl = document.querySelector('#reset');
+
 */
 
-/*-------------- Functions -------------*/
+/*----------------------------------------------------------- Functions -------------------------------------------------------------*/
 
 /* init function to start the game */
 function startGame() {
+    
+    // reset some varibles and set some varibles 
+
     shuffleDeck();
+    
     dealCards();
+    
     // Manage turns and betting
 }
 
@@ -117,12 +159,13 @@ function determineWinner() {
 }
 
 /*
+function for movable bar for player one
 render and update function
 update message function
 update cards and players satutes
 */
 
-/*----------- Event Listeners ----------*/
+/*----------------------------------------------------------- Event Listeners -------------------------------------------------------*/
 
 /* event listener for start game button */
 document.getElementById('start-game').addEventListener('click', function() {startGame();});
