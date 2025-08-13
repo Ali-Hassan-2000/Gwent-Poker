@@ -1,7 +1,7 @@
 - [✓] Task 1: planning for the project
 - [✓] Task 2: create the project main files
 - [✓] Task 3: Set up Github 
-- [ ] Task 4: Design the user interface
+- [✓] Task 4: Design the user interface
 - [ ] Task 5: Implement the main features
 - [ ] Task 6: Implement the functions
 - [ ] Task 7: Test the game
