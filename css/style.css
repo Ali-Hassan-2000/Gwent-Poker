@@ -213,17 +213,120 @@ button:hover {
     text-align: right;
     font-weight: bold;
 }
-/* ------------------------------------------------------------- stop here*/
+
+/* players cards */
+.card-container {
+    display: flex; 
+    justify-content: center; 
+    margin: 5px; 
+}
+
+.card {
+    background-color: white; 
+    border: 1px solid #333; 
+    border-radius: 10px; 
+    width: 65px;
+    height: 90px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 1px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+#player1 .card-container {
+    position: absolute; 
+    left: 100%;
+    top: -5%;  
+    transform: translateY(-50%); 
+}
+
+#player3 .card-container {
+    position: absolute; 
+    left: 100%; 
+    top: 57%; 
+    transform: translateY(-50%); 
+}
+
+#player2 .card-container {
+    position: absolute; 
+    left: 75%; 
+    bottom: 92%; 
+    transform: translateX(-50%); 
+}
+
+#player4 .card-container {
+    position: absolute; 
+    left: 15%; 
+    bottom: 92%; 
+    transform: translateX(-50%); 
+}
+
+/* cards in the middle (5),(3) */
+.center-cards {
+    display: flex;
+    align-items: center; 
+    position: absolute;
+    bottom: 200px; 
+    left: 52%; 
+    transform: translateX(-50%);
+    width: 600px; 
+    height: 180px;
+}
+
+.center-cards .card{
+    background-color: white; 
+    border: 1px solid #333; 
+    border-radius: 10px; 
+    width: 90px; 
+    height: 135px;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+    margin: 0 10px;
+}
+
+.small-cards {
+    display: flex;
+    align-items: center; 
+    position: absolute;
+    bottom: 120px; 
+    left: 32.5%; 
+    transform: translateX(-50%);
+    width: 200px; 
+    height: 90px;
+}
+
+.small-cards .card{
+    background-color: white; 
+    border: 1px solid #333; 
+    border-radius: 10px; 
+    width: 65px;
+    height: 90px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
 /* bet area that displayes total cash in the hand */
 .bet-area {
-    text-align: center;
-    margin: 20px 0;
+    display: flex;
+    align-items: center; 
+    position: absolute;
+    bottom: 120px; 
+    left: 55%; 
+    transform: translateX(-50%);
+    width: 200px; 
+    height: 100px;
 }
 
 .bet {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    width: 190px; 
+    height: 90px;
     background-color: #fff;
-    padding: 10px;
-    border: 2px solid #333;
-    border-radius: 5px;
-    font-size: 1.5em;
 }

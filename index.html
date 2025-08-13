@@ -11,39 +11,78 @@
 
     <h1>Gwent Poker</h1> <!-- game title -->
 
+<!----------------------------------------------------- Table section ---------------------------------------------------------->
+
     <div class="poker-table"> <!-- Table game div -->
 
         <div class="player" id="player2"> <!-- player 2 logo -->
             <div class="player-logo">Player 2</div>
             <div class="cash">Cash/Chip</div>
+            
+            <div class="card-container">
+                <div class="card">1</div>
+                <div class="card">2</div>
+            </div> 
         </div> 
-        
+
         <div class="player" id="player4"> <!-- player 4 logo -->  
             <div class="player-logo">Player 4</div>
             <div class="cash">Cash/Chip</div>
+
+            <div class="card-container">
+                <div class="card">1</div>
+                <div class="card">2</div>
+            </div> 
         </div> 
         
         <div class="player" id="player3"> <!-- player 3 logo -->
             <div class="player-logo">Player 3</div>
             <div class="cash">Cash/Chip</div>
+
+            <div class="card-container">
+                <div class="card">1</div>
+                <div class="card">2</div>
+            </div> 
         </div> 
         
         <div class="player" id="player1"> <!-- player 1 logo -->
             <div class="player-logo">Player 1</div>
+
+            <div class="card-container">
+                <div class="card">1</div>
+                <div class="card">2</div>
+            </div> 
         </div> 
 
         <div class="cash-player">Cash/Chip</div> <!-- player 1 cash logo -->
 
         <div id="movableBar"> <!-- This bar for player 1 to select the amount for the bet -->
-            <input type="range" id="bet-slider" min="0" max="100" value="50" />
-            <div class="bet-amount" id="bet-amount">50</div>
+            <input type="range" id="bet-slider" min="0" max="100" value="0" />
+            <div class="bet-amount" id="bet-amount">0</div>
         </div>  
 
+        <div class="center-cards"> <!-- the main 5 cards in the game -->
+            <div class="card" id="1">1</div>
+            <div class="card" id="2">1</div>
+            <div class="card" id="3">1</div>
+            <div class="card" id="4">2</div>
+            <div class="card" id="5">3</div>
+        </div>
+
+        <div class="small-cards">
+            <div class="card" id="1">1</div>
+            <div class="card" id="2">2</div>
+            <div class="card" id="3">3</div>
+        </div>
+
+        
         <div class="bet-area">
             <div class="bet" id="bet">Bet</div>
         </div>
-
+        
     </div>
+
+<!----------------------------------------------------- action section ---------------------------------------------------------->
 
     <div class="actions"> <!-- action buttons div -->
         <button id="raise">Raise</button> <!-- raise action button (for bet) -->
@@ -51,10 +90,16 @@
         <button id="fold">Fold</button> <!-- fold action button (for bet) -->
     </div>
 
-    <div class="action-message"> <!-- this part for showing the user the  (start button at first, results during the game, next hand button to continue playing until the game finished)-->
+<!----------------------------------------------------- message section ---------------------------------------------------------->
+
+    <div class="action-message"> <!-- this part for showing the user the  
+        (start button at first, results during the game, next hand button to continue playing until the game finished)-->
+        
         <p>Action message will appear here.</p> 
         <button id="start-game">Start Game</button> <!-- start game button -->
     </div>
+
+<!----------------------------------------------------- rules section ---------------------------------------------------------->
 
     <div class="rules"> <!-- game rules -->
         <h3>Poker Rules</h3>
@@ -67,8 +112,8 @@
             <li><span>Dealing:</span> Cards are dealt to each player, either face-down (hole cards) or face-up (community cards).</li>
             <li><span>Betting Rounds:</span> Players take turns betting, with options to call (match a bet), raise (increase the bet), or fold 
                 (give up on the hand).</li>
-            <li><span>Showdown:</span> If more than one player remains after the final betting round, they reveal their hands, and the player with 
-                the best hand wins the pot.</li>
+            <li><span>Showdown:</span> If more than one player remains after the final betting round, they reveal their hands, and the player 
+                with the best hand wins the pot.</li>
         </ul>
         </p>
 
