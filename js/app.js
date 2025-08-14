@@ -3,7 +3,7 @@
 /* game cards (names for calculations and imgs for UI update)*/
 const deck = {
     clubs: [
-        { name: 'Ace', img: './img/cards/clubs_ace.png' },
+        { name: 'Ace', img: './img/cards/clubs_A.png' },
         { name: '2', img: './img/cards/clubs_2.png' },
         { name: '3', img: './img/cards/clubs_3.png' },
         { name: '4', img: './img/cards/clubs_4.png' },
@@ -18,7 +18,7 @@ const deck = {
         { name: 'K', img: './img/cards/clubs_K.png' },
     ],
     diamonds: [
-        { name: 'Ace', img: './img/cards/diamonds_ace.png' },
+        { name: 'Ace', img: './img/cards/diamonds_A.png' },
         { name: '2', img: './img/cards/diamonds_2.png' },
         { name: '3', img: './img/cards/diamonds_3.png' },
         { name: '4', img: './img/cards/diamonds_4.png' },
@@ -33,7 +33,7 @@ const deck = {
         { name: 'K', img: './img/cards/diamonds_K.png' },
     ],
     spades: [
-        { name: 'Ace', img: './img/cards/spades_ace.png' },
+        { name: 'Ace', img: './img/cards/spades_A.png' },
         { name: '2', img: './img/cards/spades_2.png' },
         { name: '3', img: './img/cards/spades_3.png' },
         { name: '4', img: './img/cards/spades_4.png' },
@@ -48,7 +48,7 @@ const deck = {
         { name: 'K', img: './img/cards/spades_K.png' },
     ],
     hearts: [
-        { name: 'Ace', img: './img/cards/hearts_ace.png' },
+        { name: 'Ace', img: './img/cards/hearts_A.png' },
         { name: '2', img: './img/cards/hearts_2.png' },
         { name: '3', img: './img/cards/hearts_3.png' },
         { name: '4', img: './img/cards/hearts_4.png' },
@@ -62,8 +62,9 @@ const deck = {
         { name: 'Q', img: './img/cards/hearts_Q.png' },
         { name: 'K', img: './img/cards/hearts_K.png' },
     ],
-    back: { name: 'back-card', img: './img/cards/back_card.png' },
 };
+/* back card const */
+const backCard = { name: 'back-card', img: './img/cards/back_card.png' };
 
 /* players info */ 
 const players = [
@@ -88,25 +89,21 @@ const tableVariables = {
         { number: 3, name: '', img: '' },
     ],
     smallCards: [
-        { number: 1, name: 'back-card', img: './img/cards/back_card.png' },
-        { number: 2, name: 'back-card', img: './img/cards/back_card.png' },
-        { number: 3, name: 'back-card', img: './img/cards/back_card.png' },
+        { number: 1, name: backCard.name, img: backCard.img },
+        { number: 2, name: backCard.name, img: backCard.img },
+        { number: 3, name: backCard.name, img: backCard.img },
     ],
     playerCash: [
-        { id: 1, cash: 100 },
-        { id: 2, cash: 100 },
-        { id: 3, cash: 100 },
-        { id: 4, cash: 100 },
+        { id: players[0].id, cash: players[0].cash },
+        { id: players[1].id, cash: players[1].cash },
+        { id: players[2].id, cash: players[2].cash },
+        { id: players[3].id, cash: players[3].cash },
     ],
     playersCards: [
-        { positon: `Player1-1`, name: '', img: '' },
-        { positon: `Player1-2`, name: '', img: '' },
-        { positon: `Player2-1`, name: '', img: '' },
-        { positon: `Player2-2`, name: '', img: '' },
-        { positon: `Player3-1`, name: '', img: '' },
-        { positon: `Player3-2`, name: '', img: '' },
-        { positon: `Player4-1`, name: '', img: '' },
-        { positon: `Player4-2`, name: '', img: '' },
+        { id: players[0].id, hand: players[0].hand },
+        { id: players[1].id, hand: players[1].hand },
+        { id: players[2].id, hand: players[2].hand },
+        { id: players[3].id, hand: players[3].hand },
     ],
     totalBet: 0,
 };
@@ -116,12 +113,13 @@ const actionMessages =[ ``, ``, ``, ``, ``, ``, ``, ``, ``, ``, ``];
 
 /*---------------------------------------------- Cached Element References  --------------------------------------------------------*/
 
-/* Cached Element will be changed later if needed 
+/* Cached Element will be changed later if needed */
+const messageEl = document.querySelector('.action-message p');
 
+
+/*
 const squareEls = document.querySelectorAll('.sqr');
-const messageEl = document.querySelector('#message');
 const resetBtnEl = document.querySelector('#reset');
-
 */
 
 /*----------------------------------------------------------- Functions -------------------------------------------------------------*/
@@ -129,23 +127,87 @@ const resetBtnEl = document.querySelector('#reset');
 /* init function to start the game */
 function startGame() {
     
-    // reset some varibles and set some varibles 
-
-    shuffleDeck();
+    resetGame();
     
-    dealCards();
+    const shuffledDeck = shuffleDeck();
+    dealCards(shuffledDeck);
+    
+    updatePlayerCash();
     
     // Manage turns and betting
 }
 
+/* reset the table elements of all players */
+function resetGame() {
+    players.forEach(player => {
+        player.hand = [];
+        player.cash = 100;
+    });
+    currentBet = 0;
+    messageEl.innerText = "Game started! Place your bets."; /* start game message */
+    actionMessages.push(messageEl); /* push the message in the message array (problem if the array is full) Not checked */
+}
+
 /* shuffleDeck function at the beggingig of the game */
 function shuffleDeck() {
-    
+    const mixedCards = Object.values(deck).flat(); /* take the deck Object and make it array (without `flat()` it will sort only 
+    based on the 4 suits not all 52 cards) */
+
+    for (let i = mixedCards.length - 1; i > 0; i--) { /* loop needs refrence */ /* swaps the cards and put them in allCards Obj */
+        const j = Math.floor(Math.random() * (i + 1));
+        [mixedCards[i], mixedCards[j]] = [mixedCards[j], mixedCards[i]]; /* temp value can be used here to swap (it will take 3 steps) */
+    }
+
+    return mixedCards;
 }
 
 /* deal the cards for the player and the hand */
-function dealCards() {
-    // Deal two cards to each player and five community cards
+function dealCards(shuffledDeck) {
+    
+    for (let i = 0; i < 2; i++) { /* Deal 2 cards to each player (the last 8 mixed cards to the 4 players, each player will take one 
+        in circle) */
+        players.forEach(player => {
+            player.hand.push(shuffledDeck.pop());
+        });
+    }
+
+    /* Deal the 5 table cards */
+    shuffledDeck.pop();// one back 
+    tableVariables.centerCards[0] = shuffledDeck.pop();// 3 on first hand
+    tableVariables.centerCards[1] = shuffledDeck.pop();
+    tableVariables.centerCards[2] = shuffledDeck.pop();
+    shuffledDeck.pop();// two back
+    tableVariables.centerCards[3] = shuffledDeck.pop();// one on second hand
+    shuffledDeck.pop();// three back
+    tableVariables.centerCards[4] = shuffledDeck.pop();// one on third hand
+
+    updatePlayerCards();
+}
+
+/* function to update the cards on the table */
+function updatePlayerCards() {
+    
+    players.forEach(player => {
+        
+        /* get each of the 4 players div to add the new 2 cards for them (first we clear the previous cards) */
+        const pDiv = document.getElementById(`player${player.id}`);
+        const cardCont = pDiv.querySelector('.card-container');
+        cardCont.innerHTML = ''; // Clear previous cards (the cards are imgs and innerHTML can clear everything) 
+        /* to check in DOM `document.getElementById(`player1`).querySelector('.card-container').innerHTML = '';` */
+
+        player.hand.forEach(card => {
+            const cardD = document.createElement('div'); /* It creates a new HTML div element in memory. This new element is not
+             yet attached to the visible document structure (DOM) but exists as a standalone object that can be further manipulated 
+             and eventually added to the page. `will try later to use the existance card div instead of creating new one`*/
+            
+            cardD.className = 'card'; //use the same name in HTML
+        
+            cardD.innerHTML = `<img src="${card.img}" alt="${card.name}">`; /* this should show to the screen only the player1 cards.
+            not all players. `needs check` */
+            
+            cardCont.appendChild(cardD); //parent is cardContainer to the 2 player cards
+        });
+    });
 }
 
 /* handle betting function */
