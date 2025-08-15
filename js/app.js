@@ -63,36 +63,47 @@ const deck = {
         { name: 'K', img: './img/cards/hearts_K.png' },
     ],
 };
+
 /* back card const */
 const backCard = { name: 'back-card', img: './img/cards/back_card.png' };
 
+/*-------------------------------------------------------- Variables (state) ----------------------------------------------------------*/
+
 /* players info */ 
 const players = [
-    { id: 1, name: "Player 1", cash: 100, hand: [] },
-    { id: 2, name: "Player 2", cash: 100, hand: [] },
-    { id: 3, name: "Player 3", cash: 100, hand: [] },
-    { id: 4, name: "Player 4", cash: 100, hand: [] },
+    { id: 1, name: "Player 1", cash: 0, hand: [] },
+    { id: 2, name: "Player 2", cash: 0, hand: [] },
+    { id: 3, name: "Player 3", cash: 0, hand: [] },
+    { id: 4, name: "Player 4", cash: 0, hand: [] },
 ];
-
-/*-------------------------------------------------------- Variables (state) ----------------------------------------------------------*/
 
 /* current bet varible */
 let currentBet = 0;
 
-/* all table elements */
+/* varible to determine the active player */
+let playerIndex = 0;
+
+/* varible to determine the round in the hand */
+let round = 1;
+
+/* actions messages array to be displayed */
+let actionMessages = []; /* should be up to 15 */
+
+/* all table elements for testing */
 const tableVariables = {
-    centerCards: [
+    centerCards: [ /* this section is used */
         { number: 1, name: '', img: '' },
         { number: 1, name: '', img: '' },
         { number: 1, name: '', img: '' },
         { number: 2, name: '', img: '' },
         { number: 3, name: '', img: '' },
     ],
-    smallCards: [
+    smallCards: [ /* this section is used */
         { number: 1, name: backCard.name, img: backCard.img },
         { number: 2, name: backCard.name, img: backCard.img },
         { number: 3, name: backCard.name, img: backCard.img },
     ],
+    /* Not used yet
     playerCash: [
         { id: players[0].id, cash: players[0].cash },
         { id: players[1].id, cash: players[1].cash },
@@ -106,21 +117,13 @@ const tableVariables = {
         { id: players[3].id, hand: players[3].hand },
     ],
     totalBet: 0,
+    */
 };
-
-/* actions messages array to be displayed */
-const actionMessages =[ ``, ``, ``, ``, ``, ``, ``, ``, ``, ``, ``];
 
 /*---------------------------------------------- Cached Element References  --------------------------------------------------------*/
 
 /* Cached Element will be changed later if needed */
-const messageEl = document.querySelector('.action-message p');
-
-
-/*
-const squareEls = document.querySelectorAll('.sqr');
-const resetBtnEl = document.querySelector('#reset');
-*/
+const messageEl = document.querySelectorAll('.action-message p');
 
 /*----------------------------------------------------------- Functions -------------------------------------------------------------*/
 
@@ -133,19 +136,24 @@ function startGame() {
     dealCards(shuffledDeck);
     
     updatePlayerCash();
-    
-    // Manage turns and betting
+
+    displayCommunityCards();
 }
 
 /* reset the table elements of all players */
 function resetGame() {
+    
     players.forEach(player => {
         player.hand = [];
         player.cash = 100;
     });
+
     currentBet = 0;
-    messageEl.innerText = "Game started! Place your bets."; /* start game message */
-    actionMessages.push(messageEl); /* push the message in the message array (problem if the array is full) Not checked */
+    round = 1;
+    actionMessages = [];
+    
+    actionMessages.push("Game started! Place your bets."); /* push the message in the message array (problem if the array is full) Not checked */
+    
 }
 
 /* shuffleDeck function at the beggingig of the game */
@@ -182,6 +190,36 @@ function dealCards(shuffledDeck) {
     tableVariables.centerCards[4] = shuffledDeck.pop();// one on third hand
 
     updatePlayerCards();
+    displayCommunityCards();
+}
+
+/* function to display the center cards in the table */
+function displayCommunityCards() {
+    
+    const centerCards = document.querySelector('.center-cards');
+    centerCards.innerHTML = ''; // Clear the 5 cards
+
+    const smallCards = document.querySelector('.small-cards');
+    smallCards.innerHTML = ''; // Clear the 3 back cards
+
+    /* this function displayes all the center cards immeditly (needs to be modifyed) */
+    for (let i = 0; i < 5; i++) { 
+        
+        const card = tableVariables.centerCards[i];
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'card';
+        cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}">`;
+        centerCards.appendChild(cardDiv);
+    }
+
+    for(let i = 0; i < 3 ;i++){
+
+        const blackCard = backCard;
+        const smallCardDiv = document.createElement('div');
+        smallCardDiv.className = 'card';
+        smallCardDiv.innerHTML = `<img src="${blackCard.img}" alt="${blackCard.name}">`;
+        smallCards.appendChild(smallCardDiv);
+    }
 }
 
 /* function to update the cards on the table */
@@ -210,22 +248,78 @@ function updatePlayerCards() {
     });
 }
 
+/* function to update the cash of the players */
+function updatePlayerCash() {
+
+    players.forEach(player => {
+        const cardD = document.querySelector(`#player${player.id + 1} .cash p`); /* player 1 cash div outside the player div.
+        this fuction will work for all players exept player 1*/
+        cardD.innerText = player.cash;
+    });
+    /* temp fix for player 1 (player1 not working) */
+    const cardD = document.querySelector(`.cash-player p`);
+    cardD.innerText = players[0].cash;
+}
+
 /* handle betting function */
 function placeBet(amount) {
-    // Update the current bet and player cash
+
+    currentBet += amount;
+    const pCash = players[0].cash; // player 1 is the real player
+    
+    if (pCash >= currentBet) { /* this if for raise button insted of calling the bet (not working yet) */
+        players[0].cash -= currentBet;
+        updatePlayerCash();
+    } else {
+        actionMessages.push(`cash not enough for betting !"`); /* push the message in the message array (problem if the array is full) Not checked */
+    }
+}
+
+/* this function handle the next player index */
+function nextPlayer() {
+
+    playerIndex = (playerIndex + 1) % players.length; // Move to the next (when reach player 4 it returns to player 1)
+    
+    actionMessages.push(`${players[activePlayerIndex].name}'s turn.`); /* push the message in the message array (problem if the array is full) Not checked */
+
+    // Check if all palyers calls the bet in the round befor its over
+    if (allPlayersHaveBet()) {
+        round++;
+        currentBet = 0; // Reset current bet for the next round
+        actionMessages.push(`Round ${round} starts!`); 
+    }
+}
+
+/* function checks if all palyers calls the bet in the round befor its over */ 
+function allPlayersHaveBet() {
+    return players.every(player => player.cash >= currentBet); // Check if all players can match the bet
 }
 
 /* winner function */
 function determineWinner() {
-    // Evaluate hands and show the winner
+    // .....
+    // .....
+
+    const bestHands = players.map(player => ({ /* check iterator method */
+        player,
+        handValue: evaluateHand(player.hand)
+    }));
+
+    const winner = bestHands.reduce((prev, current) => { /* check iterator method */
+        return (prev.handValue > current.handValue) ? prev : current;
+    });
+
+    actionMessages.push(`${winner.player.name} wins!`); /* print palyer winner message */
 }
 
-/*
-function for movable bar for player one
-render and update function
-update message function
-update cards and players satutes
-*/
+/* this function caculates the winning condition in determineWinner function */
+function evaluateHand(hand) {
+    // Simple evaluation logic based on high card
+    const cardValues = hand.map(card => { /* iterator method check */
+        return ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'].indexOf(card.name);
+    });
+    return Math.max(...cardValues); // Return the highest card value
+}
 
 /*----------------------------------------------------------- Event Listeners -------------------------------------------------------*/
 
@@ -233,11 +327,27 @@ update cards and players satutes
 document.getElementById('start-game').addEventListener('click', function() {startGame();});
 
 /* event listener for action buttons for player 1 */
-/*
-document.getElementById('raise').addEventListener('click', function() {startGame();});
-*/
+
+/* event listener for check/call button */
+document.getElementById('check/call').addEventListener('click', function() {
+    /* button need to be changed ('check/call') when needed  */
+    placeBet(currentBet); // Assuming the player calls the current bet
+});
+
+/* event listener for fold button */
+document.getElementById('fold').addEventListener('click', function() {
+    /* if player 1 folds hand ends */
+    actionMessages.push(`${players[activePlayerIndex].name} folded.`); 
+    nextPlayer();
+});
 
 /* bet slider for real player event listener */
 document.getElementById('bet-slider').addEventListener('input', function(event) {
     document.getElementById('bet-amount').innerText = event.target.value;
+});
+
+/* when pressed raise take the bet amount from the movable bar and conver it to intager then go to bet function */
+document.getElementById('raise').addEventListener('click', function() {
+    const betAmount = parseInt(document.getElementById('bet-amount').innerText);
+    placeBet(betAmount);
 });
