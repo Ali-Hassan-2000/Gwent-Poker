@@ -37,7 +37,6 @@ h1 {
     position: absolute;
     align-items: center;
     flex-direction: column;
-    justify-content: space-between;
     height: 100%;
     top: 54px; 
     right: 30px;
@@ -48,12 +47,15 @@ h1 {
     width: 250px; 
 }
 
+.action-message p{
+    font-size: 12px;
+    font-weight: bold;
+}
+
 /* start game button */
 #start-game{
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    margin-bottom: 5px;
+    position: absolute;
+    bottom: 5px;
 }
 
 /* action div that contains action buttons */
@@ -88,7 +90,6 @@ button:hover {
     margin: 30px;
     right: 12px;
     padding: 10px;
-    
 }
 
 /* rules elements */
@@ -205,6 +206,7 @@ button:hover {
   position: absolute;
   bottom: 20px;
   left: 80px;
+  display: none;
 }
 
 #bet-slider {
