@@ -76,6 +76,21 @@ const points = [point: 1, hand: [2H, 3H, 4H, 5H, 7S] ],
 ; */
 
 /*-------------------------------------------------------- Variables (state) ----------------------------------------------------------*/
+/* all table elements for testing */
+const tableVariables = {
+    centerCards: [
+        { number: 1, name: '', img: '' },
+        { number: 1, name: '', img: '' },
+        { number: 1, name: '', img: '' },
+        { number: 2, name: '', img: '' },
+        { number: 3, name: '', img: '' },
+    ],
+    smallCards: [
+        { number: 1, name: backCard.name, img: backCard.img },
+        { number: 2, name: backCard.name, img: backCard.img },
+        { number: 3, name: backCard.name, img: backCard.img },
+    ],
+};
 
 /* players info */ 
 const players = [
@@ -100,39 +115,10 @@ let actionMessages = [];
 /* saves the total betted amount */
 let totalBet = 0;
 
-/* all table elements for testing */
-const tableVariables = {
-    centerCards: [ /* this section is used */
-        { number: 1, name: '', img: '' },
-        { number: 1, name: '', img: '' },
-        { number: 1, name: '', img: '' },
-        { number: 2, name: '', img: '' },
-        { number: 3, name: '', img: '' },
-    ],
-    smallCards: [ /* this section is used */
-        { number: 1, name: backCard.name, img: backCard.img },
-        { number: 2, name: backCard.name, img: backCard.img },
-        { number: 3, name: backCard.name, img: backCard.img },
-    ],
-    /* Not used yet
-    playerCash: [
-        { id: players[0].id, cash: players[0].cash },
-        { id: players[1].id, cash: players[1].cash },
-        { id: players[2].id, cash: players[2].cash },
-        { id: players[3].id, cash: players[3].cash },
-    ],
-    playersCards: [
-        { id: players[0].id, hand: players[0].hand },
-        { id: players[1].id, hand: players[1].hand },
-        { id: players[2].id, hand: players[2].hand },
-        { id: players[3].id, hand: players[3].hand },
-    ],
-    totalBet: 0,
-    */
-};
+/* Track whether the current action is a check */
+let isChecking = true; 
 
 /*---------------------------------------------- Cached Element References  --------------------------------------------------------*/
-
 const centerCards = document.querySelector('.center-cards'); // 5 cards in the middle
 const smallCards = document.querySelector('.small-cards');
 const messageEl = document.querySelectorAll('.action-message p'); /* to add comments in the action bar (12 p) */
@@ -140,7 +126,11 @@ const raiseBarEl = document.getElementById('movableBar'); /* show the bet bar */
 const betLogoEl = document.querySelector('.bet img'); /* show the game chips */
 const betAmountEl = document.querySelector('.bet p'); /* show the cash amount */
 const start_resetEl = document.getElementById('start-game'); /* change the start button to restart button */
-
+const checkCallButtonEl = document.getElementById('check/call');
+const betSliderEl = document.getElementById('bet-slider');
+const betSliderAmountEl = document.getElementById('bet-amount');
+const foldEl = document.getElementById('fold');
+const raiseEl = document.getElementById('raise');
 /*----------------------------------------------------------- Functions -------------------------------------------------------------*/
 
 /* init function to start the game */
@@ -153,6 +143,7 @@ function startGame() {
     betAmountEl.innerHTML = '0';
     raiseBarEl.style.display = 'block';
     start_resetEl.innerHTML = 'Restart game';
+    startsGame();
 }
 
 /* reset the table elements of all players */
@@ -167,12 +158,14 @@ function resetGame() {
     currentBet = 0;
     totalBet = 0;
     playerIndex = 0;
-    round = 0;
+    round = 1;
+    isChecking = true; 
     actionMessages = [];
     for (let i = 0; i < messageEl.length; i++) {
             messageEl[i].innerHTML = " ";
     }
     actionBar("Game started! Place your bets.");
+    checkCallButtonEl.innerText = 'Check';
 }
 
 /* function to display the comments in the action bar */
@@ -228,7 +221,7 @@ function displayCommunityCards() {
     for (let i = 0; i < 5; i++) { 
         const card = tableVariables.centerCards[i];
         const blackCard = backCard;    
-        if((round === 1) && (i === 0 || i === 1 || i === 2) ){
+        if((round === 2) && (i === 0 || i === 1 || i === 2) ){
             const cardDiv = document.createElement('div');
             cardDiv.className = 'card';
             cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}">`;
@@ -240,7 +233,7 @@ function displayCommunityCards() {
                 smallCards.appendChild(smallCardDiv);
             }
         }
-        else if ((round === 2) && i === 3) {
+        else if ((round === 3) && i === 3) {
             const cardDiv = document.createElement('div');
             cardDiv.className = 'card';
             cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}">`;
@@ -250,7 +243,7 @@ function displayCommunityCards() {
             smallCardDiv.innerHTML = `<img src="${blackCard.img}" alt="${blackCard.name}">`;
             smallCards.appendChild(smallCardDiv);
         }
-        else if ((round === 3) && i === 4) {
+        else if ((round === 4) && i === 4) {
             const cardDiv = document.createElement('div');
             cardDiv.className = 'card';
             cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}">`;
@@ -296,7 +289,6 @@ function updatePlayerCash() {
     }
     betAmountEl.innerText = totalBet;
 }
-
 /* ---------------------------------------------all above is checked-------------------------------------------------------------------- */
 /* handle betting function */
 function placeBet(amount) { /* needs check */
@@ -305,15 +297,20 @@ function placeBet(amount) { /* needs check */
         actionBar("cash not enough for betting !");
         return;
     }
-
+    if (isChecking && amount === 0) {
+        checkCallButtonEl.innerText = 'Check';/* this changes the name of the (check/call) */
+        actionBar(`${players[playerIndex].name} checked.`);
+        players[playerIndex].hasBet = true;
+    }
+    else {
     currentBet += amount;
     totalBet += amount; 
     players[playerIndex].cash -= amount;
     players[playerIndex].hasBet = true;
     updatePlayerCash();
-
     actionBar(`${players[playerIndex].name} placed a bet of ${amount}.`);
-
+    checkCallButtonEl.innerText = 'Call'; 
+    }
     
     if ( players.every(player => player.hasBet || player.cash === 0) ) {/* make the next palyer call or raise otherwise the round 
         finished and go to next round */
@@ -325,6 +322,9 @@ function placeBet(amount) { /* needs check */
 
         playerIndex = (playerIndex + 1) % players.length;
         actionBar(`${players[playerIndex].name}'s turn.`);
+
+        isChecking = !isChecking;
+        checkCallButtonEl.innerText = 'Check';
         
         displayCommunityCards(); //call the centerCards function
         
@@ -414,34 +414,34 @@ function checkStraight(values) {
 /*----------------------------------------------------------- Event Listeners -------------------------------------------------------*/
 
 /* event listener for start game button */
-document.getElementById('start-game').addEventListener('click', function() {
+start_resetEl.addEventListener('click', function() {
     startGame();
-    gameStarting();
 });
 
-function gameStarting(){ /* event listener for action buttons for player 1 */
+/* -------------------------------------------------------------------------------------------------- */
+function startsGame(){/* event listener for action buttons for player 1 */
+
+    /* bet slider for real player event listener */
+    betSliderEl.addEventListener('input', function(event) {
+    betSliderAmountEl.innerText = event.target.value;
+    });
 
     /* event listener for check/call button */
-    document.getElementById('check/call').addEventListener('click', function() {
-    /* button need to be changed ('check/call') when needed  */
-    placeBet(currentBet); // Assuming the player calls the current bet
+    checkCallButtonEl.addEventListener('click', function() {
+        placeBet(currentBet);
     });
 
     /* event listener for fold button */
-    document.getElementById('fold').addEventListener('click', function() {
+    foldEl.addEventListener('click', function() {
     /* if player 1 folds hand ends */
     actionBar(`${players[playerIndex].name} folded.`);
     nextPlayer();
     });
 
-    /* bet slider for real player event listener */
-    document.getElementById('bet-slider').addEventListener('input', function(event) {
-    document.getElementById('bet-amount').innerText = event.target.value;
-    });
-
     /* when pressed raise take the bet amount from the movable bar and conver it to intager then go to bet function */
-    document.getElementById('raise').addEventListener('click', function() {
-    const betAmount = parseInt(document.getElementById('bet-amount').innerText);
-    placeBet(betAmount);
-    });
+        raiseEl.addEventListener('click', function() {
+        const betAmount = parseInt(betSliderAmountEl.innerText);
+        placeBet(betAmount);
+    });   
+    
 }
