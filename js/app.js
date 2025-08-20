@@ -79,6 +79,14 @@ const HAND_RANKINGS = {
     ONE_PAIR: 2,
     HIGH_CARD: 1
 };
+const audioLIB = {
+    startGameSound: new Audio('./audio/startGame.mp3'),
+    placeBetSound: new Audio('./audio/call.mp3'),
+    foldSound: new Audio('./audio/fold.mp3'),
+    raiseSound: new Audio('./audio/raise.mp3'),
+    callSound: new Audio('./audio/call.mp3'),
+    winSound: new Audio('./audio/handWinner.mp3'),
+}
 
 /*-------------------------------------------------------- Variables (state) ----------------------------------------------------------*/
 /* all table cards elements */
@@ -147,6 +155,7 @@ const playerNameEl = document.querySelectorAll('.player-logo'); /* show the play
 /*----------------------------------------------------------- Functions -------------------------------------------------------------*/
 /* init function to start the game */
 function startGame() {
+    audioLIB.startGameSound.play();
     gameStarted = true;
     gameEnds = false;
     resetGame();
@@ -389,6 +398,7 @@ function AILearning(playerIdx) {
 }
 /* handle betting function */
 function placeBet(amount) {
+    audioLIB.placeBetSound.play();
     if (amount > players[playerIndex].cash) {
         actionBar(`${players[playerIndex].name} doesn't have enough cash!`);
         return false;
@@ -426,6 +436,7 @@ function isChecked() {
 }
 /* function for check/call button */
 function isCalled() {
+    audioLIB.callSound.play();
     const callAmount = currentBet - players[playerIndex].currentBet;
     if (callAmount <= 0) {
         actionBar(`${players[playerIndex].name} has already matched the bet`);
@@ -439,6 +450,7 @@ function isCalled() {
 }
 /* function for raise button */
 function isRaised() {
+    audioLIB.raiseSound.play();
     const betAmount = parseInt(betSliderAmountEl.innerText);
     const minR = currentBet === 0 ? 1 : currentBet * 2;
     if (betAmount < minR) {
@@ -449,6 +461,7 @@ function isRaised() {
 }
 /* function for fold button */
 function isFold() {
+    audioLIB.foldSound.play();
     players[playerIndex].hasFolded = true;
     actionBar(`${players[playerIndex].name} folded.`);
     updateUI();
@@ -578,6 +591,7 @@ function endOfTheHand() {
     dealerIndex = (dealerIndex + 1) % players.length;
     totalBet = 0;
     updateUI();
+    audioLIB.winSound.play();
     start_resetEl.innerHTML = 'New Hand';
     gameStarted = false;
 }
