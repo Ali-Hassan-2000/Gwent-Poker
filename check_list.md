@@ -2,17 +2,14 @@
 - [✓] Task 2: create the project main files
 - [✓] Task 3: Set up Github 
 - [✓] Task 4: Design the user interface
-- [✓/X] Task 5: Implement the main features
-- [✓/X] Task 6: Implement the functions
-- [ ] Task 7: Computer AI functions
-- [✓/X] Task 8: UI update functions
-- [ ] Task 9: Betting finctions
-- [ ] Task 10: calculate winner function
-- [ ] Task 11: actions message bar function
-- [ ] Task 12: extra adds(audio, animations, ect...)
-- [ ] Task 13
-- [ ] Task 14
-- [ ] Task 15
-- [ ] Task 16
+- [✓] Task 5: Implement the main features
+- [✓] Task 6: Implement the functions
+- [✓] Task 7: Computer AI functions
+- [✓] Task 8: UI update functions
+- [✓/X] Task 9: Betting finctions
+- [✓] Task 10: calculate winner function
+- [✓] Task 11: actions message bar function
+- [X] Task 12: extra adds(audio, animations, ect...)
+- [ ] Task 13: Fix raise, call for real player
 - [ ] Task 17: Prepare documentation
 - [ ] Task 18: Test the game

@@ -249,7 +249,7 @@ button:hover {
 #player3 .card-container {
     position: absolute; 
     left: 100%; 
-    top: 57%; 
+    top: 45%; 
     transform: translateY(-50%); 
 }
 
