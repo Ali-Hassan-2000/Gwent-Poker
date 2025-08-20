@@ -260,6 +260,7 @@ function updateUI() {
         betSliderEl.min = smallBet;
         betSliderEl.max = bigBet;
         betSliderEl.value = Math.min(Math.max(smallBet, 10), bigBet); //used MATH function
+        /*  the value set for the bet slider is at least 10. If smallBet is less than 10, it will use 10 instead */
         betSliderAmountEl.innerText = betSliderEl.value;
         raiseBarEl.style.display = players[0].hasFolded || players[0].isAllIn ? 'none' : 'block';
     } else {
@@ -391,6 +392,7 @@ function AILearning(playerIdx) {
         const pointsSSR = 0.5 + (pointsN * 0.1) + (cardsPoints / 100);
         // all bonus for suited cards or higher ranks (Ex. straight)
         const fiveStarSuite = playerCards[0].img.split('_')[0] === playerCards[1].img.split('_')[0] ? 0.1 : 0;
+        // The code checks if the suits of the two cards are the same.
         const TwofiveStarSuite = Math.abs(playerCards[0].value - playerCards[1].value) <= 2 ? 0.1 : 0;
         return Math.min(0.9, pointsSSR + fiveStarSuite + TwofiveStarSuite);
     }
@@ -403,7 +405,7 @@ function placeBet(amount) {
         actionBar(`${players[playerIndex].name} doesn't have enough cash!`);
         return false;
     }
-    const isAllCashIn = amount === players[playerIndex].cash;
+    const isAllCashIn = amount === players[playerIndex].cash; // true or false
     players[playerIndex].cash -= amount;
     players[playerIndex].currentBet += amount;
     totalBet += amount;
@@ -599,7 +601,7 @@ function endOfTheHand() {
 function calculateSideBettss() {
     const activePlayers = players.filter(p => !p.hasFolded);
     const bets = activePlayers.map(p => p.currentBet).sort((a,b) => a - b);
-    const SSRBets = [...new Set(bets)];
+    const SSRBets = [...new Set(bets)]; //creates a new Set object from the bets array + expand the elements of the Set back into an array.
     const bettss = [];
     let preLVL = 0;
     SSRBets.forEach(currentLevel => {
@@ -656,6 +658,9 @@ function evaluateHand(cards) {
     const flushCards = flushSuit ? cards.filter(card => card.img.includes(flushSuit)) : [];
     let straightHighCard = null;
     const SSRValues = [...new Set(cards.map(card => card.value))].sort((a, b) => b - a);
+    /* creates a new array by mapping over the cards array and extracting the value property from each card
+     The Set will automatically remove any duplicate values, ensuring that each card value appears only once.
+      */
     for (let i = 0; i <= SSRValues.length - 5; i++) {
         if (SSRValues[i] - SSRValues[i + 4] === 4) {
             straightHighCard = SSRValues[i];

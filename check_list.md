@@ -9,7 +9,7 @@
 - [✓/X] Task 9: Betting finctions
 - [✓] Task 10: calculate winner function
 - [✓] Task 11: actions message bar function
-- [X] Task 12: extra adds(audio, animations, ect...)
-- [ ] Task 13: Fix raise, call for real player
-- [ ] Task 17: Prepare documentation
-- [ ] Task 18: Test the game
+- [✓/X] Task 12: extra adds(audio, animations, ect...)
+- [X] Task 13: Fix raise, call for real player
+- [✓] Task 17: Prepare documentation
+- [✓] Task 18: Test the game
