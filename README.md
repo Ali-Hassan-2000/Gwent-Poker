@@ -3,7 +3,7 @@ Gwent Poker is an exciting web-based game. Players will engage in thrilling roun
 ## Overview
 Gwent Poker is a digital poker game that combines the traditional rules of poker with an engaging user interface. Players can compete against AI opponents, manage their bets, and enjoy the strategic elements of poker.
 
-![Gwent Poker](./img/Poker_rules.png)
+![Gwent Poker](./img/gamePage.png)
 ## Table of Contents
 - [Features](#features)
 - [Game Instructions](#game-instructions)
