@@ -150,6 +150,7 @@ const betSliderAmountEl = document.getElementById('bet-amount'); // movable bar 
 const foldEl = document.getElementById('fold'); // fold button
 const raiseEl = document.getElementById('raise'); // raise button
 const playercashpp = document.querySelectorAll('.cash img');/* show the players chips */
+const Realplayercashpp = document.querySelectorAll('.cash-player img');/* show the players chips */
 const playerNameEl = document.querySelectorAll('.player-logo'); /* show the players div */
 
 /*----------------------------------------------------------- Functions -------------------------------------------------------------*/
@@ -186,10 +187,11 @@ function resetGame() {
     actionMessages = [];
     for (let i = 0; i < messageEl.length; i++) {
         messageEl[i].innerHTML = " ";
-    }
+    } 
     playercashpp.forEach(logo => {
         logo.src = chip_img;
     });
+    Realplayercashpp.src = chip_img;
     betLogoEl.src = chip_img;
     updateUI();
 }
