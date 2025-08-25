@@ -9,6 +9,8 @@ Gwent Poker is a digital poker game that combines the traditional rules of poker
 - [Game Instructions](#game-instructions)
 - [Functions Overview](#functions-overview)
 - [AI Computer Player](#ai-computer-player)
+- [Technologies Used](#Technologies-Used)
+- [Planned Future Enhancements](#Planned-Future-Enhancements)
 - [References](#references)
 
 ## Features
@@ -147,6 +149,24 @@ The AI opponents in Gwent Poker utilize a basic strategy based on their hand str
 - Fold: The AI can fold if it determines its hand is weak.
 
 The AI decisions are influenced by a random factor combined with an evaluation of their hand, allowing for variability in gameplay.
+
+## Technologies Used
+- JavaScript: For game logic and interactivity.
+- HTML: For the structure of the web pages.
+- CSS: For styling and layout of the game interface.
+- Git: For version control.
+
+## Planned Future Enhancements
+Here are some planned future enhancements (stretch goals) for Gwent Poker:
+
+1. **Multiplayer Mode:**
+Implement online multiplayer functionality, allowing players to compete against friends or other players globally.
+
+2. **Mobile Optimization:**
+Improve the user interface for better experience on mobile devices, ensuring responsiveness and touch-friendly controls.
+
+2. **Tutorial Mode:**
+Develop an interactive tutorial mode for new players to learn the game mechanics and strategies.
 
 ## References
 - [1] [shuffling a standard deck of cards](https://github.com/beck410/card-shuffle.git)

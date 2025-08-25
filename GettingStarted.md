@@ -1,7 +1,23 @@
 # Project Description:
 Gwent Poker is an exciting web-based game. Players will engage in thrilling rounds against three computer opponents, each with unique AI strategies.
 
+**Welcome to Gwent Poker! You can play the game by following the link below:**
+**[game link](https://ali-hassan-2000.github.io/Gwent-Poker/)**
+
 The game features a clean and intuitive interface built with HTML, CSS, and JavaScript, ensuring a seamless gaming experience. Players will follow traditional poker rules, making strategic decisions to outsmart their opponents and win chips.
+
+# Important Instructions
+- Landing Page: Upon arriving at the website, you will see a welcoming landing page.
+- Game Instructions: Access clear instructions on how to play the game from the menu.
+- Starting the Game: Click the “Start Game” button to initiate a new round.
+- Gameplay Interface: You will see your cards displayed for gameplay decisions.
+- Action Buttons: Use the clearly labeled buttons for actions like “Call,” “Raise,” and “Fold.”
+- AI Opponents: Compete against three computer opponents with varying strategies.
+- Current Bet Display: Check the current bet amount displayed prominently.
+- Round Results: After each round, you will receive a message indicating the outcome.
+- Score Tracking: Your score and chip count will be displayed throughout the game.
+- Play Again Option: After the game ends, you can opt to play another round.
+
 
 # User Stories:
 1.**Landing Page**
